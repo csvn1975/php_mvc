@@ -20,10 +20,18 @@ function validator(formSelecter) {
 
     /* Price */
     price: (value, msg = "") => {
-      let regex = /^([0-9]+)([\.|\,][0-9]{1,2})*$/;
+      let regex = /^(\d)+([\.|\,]\d{1,2})*$/;
       return regex.test(value)
         ? undefined
         : msg || "Bitte geben Sie einen Preis ein. ";
+    },
+
+    /* Number */
+    number: (value, msg = "") => {
+      let regex = /^([+|-])*(\d)+$/;
+      return regex.test(value)
+        ? undefined
+        : msg || "Bitte geben Sie eine Zahl ein. ";
     },
 
     email: (value, msg = "") => {
@@ -143,7 +151,6 @@ function validator(formSelecter) {
 
   /* form-submit */
   formElement.onsubmit = function (event) {
-    alert("sdsd");
     var isValid = true;
     for (input of inputs) {
       // zuweisen als Event: Event = {target: input}
