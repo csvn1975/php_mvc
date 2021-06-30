@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-require "Core/Helpers.php";
-
 class ProductController extends \Core\BaseController {
     
     private $productModel;
@@ -29,7 +27,7 @@ class ProductController extends \Core\BaseController {
             'select' => 'products.id as id, products.name, products.img, products.price, categories.name as category', 
             'limit' => $offset . ", " . PER_PAGE_COUNT, 
             'order by' => 'name asc',
-            'join'  => ' left outer join categories on (products.category_id = categories.id) '
+            'join'  => 'left outer join categories on (products.category_id = categories.id)'
             ]
         );
         

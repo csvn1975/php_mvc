@@ -80,16 +80,6 @@ if (isset($pageTitle))
     var validatorForm = new validator('#product-create');
 
     validatorForm.onsubmit = function(data) {
-        //
+      // console.log(data);
     }
-
-    /* let form = document.getElementById('form-product');
-    form.addEventListener('submit' , handleSubmit);
-
-    function handleSubmit(e) { 	
-        let isInvalided = true;
-        if (isInvalided)  
-          e.preventDefault();
-           
-    } */
 </script>

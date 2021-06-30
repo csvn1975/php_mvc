@@ -28,12 +28,11 @@ if (isset($pageTitle))
     </div>
 </div>
 
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         menuActive('#category', '#category-list');
     });
 
     var validatorForm = new validator('#category-edit');
-    validatorForm.onsubmit = function(data) {}
+     //validatorForm.onsubmit = function() {}
 </script>

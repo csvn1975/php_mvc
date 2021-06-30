@@ -1,6 +1,6 @@
 <?php
 if (isset($pageTitle))
-    echo "<center><h1> $pageTitle </h1></center>";
+    echo "<h1> $pageTitle </h1>";
 ?>
 
 <div class="row">
@@ -30,9 +30,9 @@ if (isset($pageTitle))
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        menuActive('#product', '#product-add')
+        menuActive('#category', '#category-add')
     });
 
     var validatorForm = new validator('#category-create');
-    validatorForm.onsubmit = function(data) {}
+    // validatorForm.onsubmit();
 </script>
