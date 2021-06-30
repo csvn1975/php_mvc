@@ -1,0 +1,55 @@
+.sidebar {
+    float: left;
+    width: 20%;
+    min-height: 100vh;
+    min-height: 100vh;
+    background-color: $bg-color-sidebar;
+}
+
+.main {
+    position: relative;
+    float: left;
+    width: calc(80% - 5px);
+    margin-left: 5px;
+    min-height: 100vh;
+    background-color: $bg-color-sidebar;
+}
+
+.header {
+    display: flex;
+    height: 10vh;
+    background-color: $color-primary;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+    color: white;
+
+    h1 {
+       padding:0;
+       margin: 0;
+    }
+}
+
+
+.content {
+    position: relative;
+    padding: 20px 20px;
+    min-height: 80vh;
+}
+
+.footer {
+    text-align: center;
+    height: 10vh;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+
+}
+
+.image-display {
+    display: none;
+}
+
+.image-display.show{
+    display: inline-block;
+}

@@ -1,0 +1,115 @@
+.main-menu {
+
+    &.open + .sub-menu {
+        display: block;
+    }
+
+    &__item {
+        position: relative;
+        font-size: 1.6rem;
+        color: white;
+        background-color: $menu-color;
+
+        padding: 8px 16px 8px 10px;
+        cursor: pointer;
+        transition: all 0.5s;
+
+        &:after {
+            position: absolute;
+            content : "";
+            width: 0;
+            border-bottom: 2px solid white;
+            top: 100%;
+            left:10px;
+        }
+
+        > .fa-sort-down {
+            transition: all 0.5s;
+            font-size: 2.4rem;
+    
+        }
+        
+        &:hover {
+            background-color: $menu-color-dark;
+            z-index: 99;
+            &:after {
+                animation: main_menu_slider 0.5s ease-in-out forwards;
+            }
+
+            >.fa-sort-down {
+                animation: subMenuClose 0.3s linear forwards;
+            }
+        }
+
+        &:hover + .sub-menu {
+            display: block;
+         }
+    }
+}
+
+.sub-menu {
+    display: none;
+
+    &:hover {
+       display: block;
+    }
+
+    &__item {
+        position: relative;
+        padding: 8px 16px 8px 20px;
+        
+        font-size: 1.4rem;
+        color: white;
+        background-color: $menu-color-light;
+        
+        cursor: pointer;
+        transition: all 0.5s;
+
+        &--link, 
+        &--link:active, 
+        &--link:hover {
+            display: inline-block;
+            width: 100%;
+
+            text-decoration: none;
+            color: white;
+            height: 100%;
+        }
+        
+        &.active {
+            background-color: $menu-color-dark;
+
+            &:after {
+                width: calc(100% - 20px);
+            }
+        }
+
+        &:hover {
+            background-color: $menu-color-dark;
+            &:after {
+                animation: sub_menu_slider 0.5s ease-in-out forwards;
+            }
+        }
+
+        &:after {
+            content : "";
+            position: absolute;
+            width: 0;
+            top: calc(100% - 1px);
+            left:20px;
+            border-bottom: 1px solid white;
+            &.active {
+                width: calc(100% - 20px);
+            }
+        }
+    }
+}
+
+/* 
+.sub-menu__item--link, 
+.sub-menu__item--link:hover {
+    text-decoration: none;
+    color: white;
+} */
+   
+   

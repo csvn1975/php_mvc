@@ -1,0 +1,32 @@
+@keyframes main_menu_slider{
+    0% {
+        width: 0% 
+    }
+
+    100% {
+        width: calc(100% - 10px) 
+    }
+
+}
+
+@keyframes sub_menu_slider{
+    0% {
+        width: 0% 
+    }
+
+    100% {
+        width: calc(100% - 20px) 
+    }
+
+}
+
+@keyframes subMenuClose{
+    0% {
+        transform: rotate(0) translateY(-50%);
+    }
+
+    100% {
+       transform: rotate(180Deg) translateY(-50%);
+    }
+
+}
