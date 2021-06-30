@@ -29,7 +29,7 @@ class CategoryController extends \Core\BaseController {
         
         # var_dump($categories);
         
-        $this -> loadView('layouts.master' , [
+        $this -> loadView('layouts.default' , [
             'view' => 'pages.categories.index',
             'categories' => $categories,
             'pageTitle' => 'Category Lists', 
@@ -49,7 +49,7 @@ class CategoryController extends \Core\BaseController {
     function create() 
     {
         $htmlOptionCategory = $this -> categoryModel -> categorySelectOption();
-        $this->loadView('layouts.master' , [
+        $this->loadView('layouts.default' , [
             'view' => 'pages.categories.create',
             'pageTitle' => 'Create  new category',
             'htmlOptionCategory' => $htmlOptionCategory,
@@ -73,7 +73,7 @@ class CategoryController extends \Core\BaseController {
         # selected parent        
         $htmlOptionCategory = $this -> categoryModel -> categorySelectOption($category['parent'], $id);
 
-        $this->loadView('layouts.master' , [
+        $this->loadView('layouts.default' , [
             'view' => 'pages.categories.edit',
             'pageTitle' => 'Editing category',
             'htmlOptionCategory' => $htmlOptionCategory,

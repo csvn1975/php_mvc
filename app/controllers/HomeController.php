@@ -6,7 +6,7 @@ class HomeController extends \Core\BaseController {
     
     function index() {
 
-        $this -> loadView('layouts.master', [
+        $this -> loadView('layouts.default', [
             'view' => 'pages.home.index'
         ] );
 
