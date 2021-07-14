@@ -21,7 +21,7 @@ class BaseController {
         foreach ( $data as $key => $value ) {
             $$key = $value;
         }
-
+        
         require VIEW_FOLDER_NAME . str_replace("." , "/", $path) . ".php";
     }
 

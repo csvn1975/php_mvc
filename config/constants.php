@@ -13,5 +13,7 @@
     define ('UPLOAD_FOLDER' , '/public/upload/');
 
     define ('PER_PAGE_COUNT' , 7);
+    
+    define('MD5_PRIVATE_KEY', '2342kuhskdfsd23(&kusdhfjsgJYGJGsfdf384');
 
 ?>

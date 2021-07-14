@@ -33,7 +33,7 @@ class BaseModel extends \Core\Database
             'select' => '*',
             'join' => '',
             'params' => '',
-            'where' => '',
+            'where' => null,
             'order by' => '',
             'limit' => '',
             'field' => '',
@@ -46,7 +46,7 @@ class BaseModel extends \Core\Database
      * $queryParams => structor as then $this->queryParams
      */
     public function query($sql)
-    {    
+    {
         //echo $sql;
 
         $result = $this->dbcon->query($sql) or die($this->dbcon->errno);
@@ -67,7 +67,7 @@ class BaseModel extends \Core\Database
     {
         $data = [];
         $query = $this->query($sql);
-        
+
         if ($query) {
             while ($row = $query->fetch_assoc()) {
                 array_push($data, $row);
@@ -79,10 +79,10 @@ class BaseModel extends \Core\Database
     public function find($table, $id)
     {
         $sql = "SELECT * FROM $table WHERE $this->primaryId = $id";
-        return $this -> query($sql)->fetch_assoc();
+        return $this->query($sql)->fetch_assoc();
     }
 
-    
+
     /* ======= mit QUERY-PARAMETER */
     /**
      * get all Data
@@ -92,27 +92,27 @@ class BaseModel extends \Core\Database
     public function all($table, $queryParams = [])
     {
         $newParams = array_merge($this->queryParams, $queryParams);
-        $sql = $this->buildSQLParammert($table, $newParams);
+        $sql = $this->buildSQLFromParams($table, $newParams);
         #die($sql);
-        $query = $this->query_array($sql);       
+        $query = $this->query_array($sql);
         return $query;
     }
 
     public function get($table, $queryParams = [])
     {
         $newParams = array_merge($this->queryParams, $queryParams);
-        $sql = $this->buildSQLParammert($table, $newParams);
+        $sql = $this->buildSQLFromParams($table, $newParams);
         #die($sql);
-        $query = $this->query_array($sql);       
+        $query = $this->query_array($sql);
         return $query;
     }
 
     /**
      * array input: 
      */
-    public function where($col, $operator, $value)
+    public function where($table, $col, $operator, $value)
     {
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE ';
+        $query = 'SELECT * FROM ' . $table . ' WHERE ';
         $query .= $col . ' ' . $operator . ' ' .  $this->escape_string($value);
         return $this->query_array($query);
     }
@@ -123,17 +123,17 @@ class BaseModel extends \Core\Database
 
     public function select_once($table, $queryParams = [])
     {
-        $newParams = array_merge($this->queryParams, $queryParams, ['LIMIT' => '1']);
-        $query =  $this->query($this->buildSQLParammert($table, $newParams));
-
-        if ($query) {
-            if ($query->num_rows > 0) {
-                $arr = mysqli_fetch_assoc($query);
-            }
-        }
-        return $arr;
+        return $this->getOnce($table, $queryParams);
     }
 
+    public function getOnce($table, $queryParams = [])
+    {
+        $newParams = array_merge($this->queryParams, $queryParams, ['LIMIT' => '1']);
+        $query =  $this->query($this->buildSQLFromParams($table, $newParams));
+        if ($query->num_rows > 0) {
+            return $query->fetch_assoc() ;
+        }
+    }
 
     /**
      * add new item 
@@ -149,11 +149,11 @@ class BaseModel extends \Core\Database
             return $this->escape_string($value);
         }, $data);
 
-        $values = implode("', '", $value_array);        
-        $sql  = "INSERT INTO $table  ($columns) VALUES ('  $values ') ";
+        /* $values = implode("','", $value_array); */
+        $values = "'" . implode("','", $value_array) . "'";
+        $sql  = "INSERT INTO $table  ($columns) VALUES ($values) ";
 
-        return $this -> query($sql) or die ();
-
+        return $this->query($sql) or die();
     }
 
     public function insert($table, $data)
@@ -161,23 +161,17 @@ class BaseModel extends \Core\Database
         return $this->create($table, $data);
     }
 
-    public function count($table){
+    public function count($table)
+    {
         $query = $this->query("SELECT 1 from $table");
         return $query->num_rows;
     }
 
     public function update($table, $id, $data)
     {
-        $updateValue = [];
-
-        if (count($data) > 0) {
-            foreach ($data as $key => $value) {
-                $value = $this->escape_string($value);
-                array_push($updateValue,  "$key = '$value'");
-            };
-
+        $updateValue = $this->convertArrayToSqlPair($data);
+        if (count($updateValue) > 0) {
             $dataSetString = implode(', ', $updateValue);
-
             $sql = "UPDATE $table SET $dataSetString WHERE $this->primaryId = $id ";
             return $this->query($sql);
         }
@@ -205,6 +199,23 @@ class BaseModel extends \Core\Database
         }
     }
 
+    /**
+     * @ input array: key, value, operator  
+     */
+    public function deleteByWhere($table, $params)
+    {
+        $Where = isset($params['where']) ? $params['where'] : [];
+        die($Where);
+
+        if (!empty($Where)) {
+            $sql = "DELETE FROM $table  WHERE ";
+            $sql .= " (" . join(' and ' , $this->convertArrayToSqlPair($Where)) . ") "; 
+            die($sql);
+            $result = $this->query($sql);
+            return $result;
+        }
+    }
+
     /** ===============================================
      *  ===========    HELPER-FUNCTIONS   =============
      * =============================================== */
@@ -222,12 +233,49 @@ class BaseModel extends \Core\Database
         echo "</pre>";
     }
 
-    private function  buildSQLParammert($table, $params)
-    {        
+    /** 
+     * @ input Array: key => value
+     * @ output array key = value
+     */ 
+    
+    private function convertArrayToSqlPair($data) {
+        
+        $output = [];
+
+        if (count($data) > 0) {
+            foreach ($data as $key => $value) {
+                $value = $this->escape_string($value);
+                array_push($output,  "$key = '$value'");
+            };
+        }
+        return $output;   
+    }
+
+    /**
+     * @ output, example where key= value
+     */
+
+    private function decodeParams($params, $key) {
+        $sql = "";
+        if (isset($params[$key])) { 
+            $value = $params[$key];
+            if (is_array($value)) {
+                $sql = " (" . join(' and ' , $this->convertArrayToSqlPair($value)) . ") "; 
+            }
+            else 
+                $sql = trim($value) ?? '';    
+        }
+        return  $sql ?  " $key $sql " : ""; 
+    }
+
+    private function  buildSQLFromParams($table, $params)
+    {
         $sql = 'SELECT ' . $params['select'];
         $sql .= ' FROM ' . $table ?? $this->table;
         $sql .= trim($params['join']) ? ' ' .  $params['join'] : '';
-        $sql .= trim($params['where']) ? ' WHERE ' .  $params['where'] : '';
+
+        /* $sql .= trim($params['where']) ? ' WHERE ' .  $params['where'] : ''; */
+        $sql .= $this->decodeParams($params, 'where');
         $sql .= trim($params['order by']) ? ' ORDER BY ' .  $params['order by'] : '';
         $sql .= trim($params['limit']) ? ' LIMIT ' .  $params['limit'] : '';
         return $sql;

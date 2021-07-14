@@ -3,12 +3,6 @@
   padding: 0;
   box-sizing: inherit; }
 
-a,
-a:hover,
-a:focus {
-  text-decoration: none;
-  color: white; }
-
 ul {
   margin: 0;
   padding: 0;
@@ -80,7 +74,7 @@ option {
 
 .header {
   display: flex;
-  height: 10vh;
+  height: 50px;
   background-color: #C70939;
   align-items: center;
   justify-content: space-between;
@@ -93,14 +87,19 @@ option {
 .content {
   position: relative;
   padding: 20px 20px;
-  min-height: 80vh; }
+  min-height: calc(100vh - 150px); }
 
 .footer {
-  text-align: center;
-  height: 10vh;
+  display: flex;
+  height: 100px;
   align-items: center;
-  justify-content: space-between;
-  padding: 0px 20px; }
+  justify-content: center;
+  padding: 0px 20px;
+  color: white;
+  background-color: #C70939; }
+  .footer p {
+    padding: 0;
+    margin-bottom: 0; }
 
 .image-display {
   display: none; }
@@ -123,35 +122,49 @@ option {
     transform: rotate(0) translateY(-50%); }
   100% {
     transform: rotate(180Deg) translateY(-50%); } }
-.main-menu.open + .sub-menu {
-  display: block; }
-.main-menu__item {
-  position: relative;
-  font-size: 1.6rem;
-  color: white;
-  background-color: #C70939;
-  padding: 8px 16px 8px 10px;
-  cursor: pointer;
-  transition: all 0.5s; }
-  .main-menu__item:after {
-    position: absolute;
-    content: "";
-    width: 0;
-    border-bottom: 2px solid white;
-    top: 100%;
-    left: 10px; }
-  .main-menu__item > .fa-sort-down {
-    transition: all 0.5s;
-    font-size: 2.4rem; }
-  .main-menu__item:hover {
-    background-color: #900C3E;
-    z-index: 99; }
-    .main-menu__item:hover:after {
-      animation: main_menu_slider 0.5s ease-in-out forwards; }
-    .main-menu__item:hover > .fa-sort-down {
-      animation: subMenuClose 0.3s linear forwards; }
-  .main-menu__item:hover + .sub-menu {
+.main-menu {
+  border-bottom: 1px solid #f2f2f2; }
+  .main-menu.open + .sub-menu {
     display: block; }
+  .main-menu.active {
+    background-color: #900C3E; }
+    .main-menu.active:after {
+      width: 100%; }
+  .main-menu:hover {
+    background-color: #900C3E;
+    border-bottom: unset; }
+    .main-menu:hover.active {
+      background-color: #900C3E;
+      border-bottom: unset; }
+      .main-menu:hover.active:after {
+        animation: sub_menu_slider 0.5s ease-in-out forwards; }
+  .main-menu__item {
+    position: relative;
+    font-size: 1.6rem;
+    color: white;
+    background-color: #C70939;
+    padding: 8px 16px 8px 10px;
+    cursor: pointer;
+    transition: all 0.5s; }
+    .main-menu__item:after {
+      position: absolute;
+      content: "";
+      width: 0;
+      border-bottom: 2px solid white;
+      top: 100%;
+      left: 10px; }
+    .main-menu__item > .fa-sort-down {
+      transition: all 0.5s;
+      font-size: 2.4rem; }
+    .main-menu__item:hover {
+      background-color: #900C3E;
+      z-index: 99; }
+      .main-menu__item:hover:after {
+        animation: main_menu_slider 0.5s ease-in-out forwards; }
+      .main-menu__item:hover > .fa-sort-down {
+        animation: subMenuClose 0.3s linear forwards; }
+    .main-menu__item:hover + .sub-menu {
+      display: block; }
 
 .sub-menu {
   display: none; }

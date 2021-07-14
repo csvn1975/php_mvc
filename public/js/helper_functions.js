@@ -8,6 +8,13 @@ function menuActive(mainId, subID) {
     }
 }
 
+function mainMenuActive(mainId) {
+    let mainMenu = document.querySelector(mainId)
+    if (mainMenu != undefined) {
+        mainMenu.classList.add('active');
+    }
+}
+
 function setPaginationStatus(currentPage, pageCount){
     let pageLink = document.querySelectorAll(".page-item[data='number']");
     let pagePrevious = document.querySelector(".page-item[data='prev']");
