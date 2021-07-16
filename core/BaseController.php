@@ -15,7 +15,7 @@ class BaseController {
     protected function loadView($path, $data = []) {
         
         /**
-         * conver array in variable-name
+         * convert array in variable-name
          * view-file in format: folder.name 
          */ 
         foreach ( $data as $key => $value ) {

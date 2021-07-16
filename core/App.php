@@ -44,9 +44,8 @@ class App{
             array_shift($arr);
         }
         
-        // Params
         $this->params = $arr ? array_values($arr) : [];
-
+        
         //call controller/method
         #$class = $diContianer->get_class($class);
         call_user_func_array([ $this -> controller, $this -> action], $this -> params );

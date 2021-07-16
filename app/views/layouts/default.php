@@ -1,13 +1,13 @@
-<?php includeView('includes/head') ?>
+<?php includeView('includes.head') ?>
 <div class="sidebar">
-    <?php includeView('includes/sidebar') ?>
+    <?php includeView('includes.sidebar') ?>
 </div>
 
     <!-- MAIN CONTENT -->
     <div class="main">
     <!-- HEADER -->
     <div class="header">
-        <?php includeView('includes/header') ?>
+        <?php includeView('includes.header') ?>
     </div>
 
     <div class="content">

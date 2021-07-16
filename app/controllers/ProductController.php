@@ -14,6 +14,9 @@ class ProductController extends \Core\BaseController {
 
         $this->productModel = new \App\Models\ProductModel();
         $this->categoryModel = new \App\Models\CategoryModel();
+
+        if (!(new \App\Models\userModel())->authUser()) 
+            $this->redirect('/admin');   
     }
     
     function index($page = 1) {

@@ -11,7 +11,7 @@ class HomeController extends \Core\BaseController {
         ] );
 
     }
-
+    
     function store() {
         echo __METHOD__;
     }

@@ -21,9 +21,26 @@ function md5Security($pwd) {
 
 
 function authToken() {
-    echo "dadasd";
+    return (new \App\Models\UserModel())->authUser();  
+}
+
+function makeAuthToken($email,$password) {
     
-    return (new Core/UserModel())->authUser();  
+    if ($email && $password) {
+        $userModel = new \App\Models\UserModel();
+        $user = $userModel->getLoginUser($email, $password);
+        
+        /* generate token */
+        if (isset($user['error']))
+            return $user['error'];
+        else 
+        {
+            $token = str_shuffle($email . time());
+            setcookie('token', $token, time() + 7 * 24 * 60 * 60, '/');
+            $userModel->saveLoginToken($user['id'], $token);
+            
+        }
+    }
 }
 
 ?>

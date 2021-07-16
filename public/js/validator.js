@@ -2,7 +2,6 @@
 
 function validator(formSelecter) {
   const defaultMessage = "Bitte geben Sie einen Eintrag ein.";
-
   /**
    * damit z.B die function formElement.onsubmit  key word this (validator) zugreifen kann
    * formRules: jeder Input  ist ein array {feld1 : [..], Feld2 : [...] }
@@ -18,12 +17,12 @@ function validator(formSelecter) {
       return value ? undefined : msg || defaultMessage;
     },
 
-    /* Price */
+    /* Price 2 decimal */
     price: (value, msg = "") => {
-      let regex = /^(\d)+([\.|\,]\d{1,2})*$/;
+      let regex = /^(\d)+([\,]\d{1,2})*$/;
       return regex.test(value)
         ? undefined
-        : msg || "Bitte geben Sie einen Preis ein. ";
+        : msg || "Bitte geben Sie einen gültigen Preis ein. ";
     },
 
     /* Number */
@@ -33,7 +32,8 @@ function validator(formSelecter) {
         ? undefined
         : msg || "Bitte geben Sie eine Zahl ein. ";
     },
-
+    
+  
     email: (value, msg = "") => {
       let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       return regex.test(value)
@@ -45,7 +45,7 @@ function validator(formSelecter) {
       return function (value) {
         return value.length >= min
           ? undefined
-          : `Bitte geben Sie mindesten ${min} Zeichen ein.`;
+          : msg || `Bitte geben Sie mindesten ${min} Zeichen ein.`;
       };
     },
 
@@ -53,7 +53,16 @@ function validator(formSelecter) {
       return function (value) {
         return value.length <= max
           ? undefined
-          : `Bitte geben Sie maximal nur ${min} Zeichen ein.`;
+          : msg ||`Bitte geben Sie maximal nur ${min} Zeichen ein.`;
+      };
+    },
+
+    confirm: function (compare) {  
+      var elCompare = formElement.querySelector("[name=" + compare + "]");
+      return function (value) {
+        return (elCompare && value == elCompare.value)
+          ? undefined
+          : msg ||'Die Bestätigungspasswort stimmt nicht überein';
       };
     },
   };
@@ -83,6 +92,7 @@ function validator(formSelecter) {
         ruleParam = rule.split(":");
         rule = ruleParam[0];
         ruleFunction = validatorRules[rule](ruleParam[1]);
+
       } else ruleFunction = validatorRules[rule];
 
       if (Array.isArray(formRules[input.name]))
@@ -104,7 +114,7 @@ function validator(formSelecter) {
     }
   }
 
-  function ErrorMessage(error, element, selector) {
+  function showErrorMessage(error, element, selector) {
     const msgSelector = ".form-message";
     let formGroup = getParent(element, selector);
     if (!formGroup) return;
@@ -144,7 +154,7 @@ function validator(formSelecter) {
       if (errorMessage != undefined) break;
     }
 
-    ErrorMessage(errorMessage, target, selector);
+    showErrorMessage(errorMessage, target, selector);
 
     return !errorMessage;
   }

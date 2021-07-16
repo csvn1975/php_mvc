@@ -24,7 +24,7 @@ if (isset($pageTitle))
                 <td><?= $row ?></td>
                 <td><?= $product['name'] ?></td>
                 <td><?= $product['category'] ?></td>
-                <td class="text-right"><?= $product['price'] ?></td>
+                <td class="text-right"><?= \Core\Helpers::gerCurrency($product['price']) ?></td>
                 <td class="text-right">
                   <img style="height: 40px"  src ="<?= UPLOAD_FOLDER . $product['img']?>" />  
         
@@ -39,24 +39,25 @@ if (isset($pageTitle))
 </table>
 
 <!-- Pagination -->
-<nav aria-label="Page navigation">
-  <ul class="pagination">
+<?php if ($page_count>1) : ?>            
+    <nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item" data="prev">
+            <a class="page-link" href="/product/index/<?= ($page_index-1) ?>">Previous</a>
+        </li>
 
-    <li class="page-item" data="prev">
-        <a class="page-link" href="/product/index/<?= ($page_index-1) ?>">Previous</a>
-    </li>
+        <?php for ($i = 1; $i <= $page_count ; $i++) : ?>
+            <li class="page-item" data="number">
+            <a class="page-link" href="/product/index/<?= $i ?>"><?= $i ?></a></li>
+        <?php endfor ?>    
 
-    <?php for ($i = 1; $i <= $page_count ; $i++) : ?>
-         <li class="page-item" data="number">
-         <a class="page-link" href="/product/index/<?= $i ?>"><?= $i ?></a></li>
-    <?php endfor ?>    
+        <li class="page-item" data="next">
+            <a class="page-link" href="/product/index/<?= ($page_index + 1) ?>" >Next</a>
+        </li>
 
-    <li class="page-item" data="next">
-        <a class="page-link" href="/product/index/<?= ($page_index + 1) ?>" >Next</a>
-    </li>
-
-  </ul>
-</nav>
+    </ul>
+    </nav>
+<?php endif ?>
 <!-- end Pagination -->
 
 <script>

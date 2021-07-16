@@ -100,7 +100,7 @@ function makeHTMLBtnEdit($id)
                <i class="fas fa-pen"></i></button>`;
 }
 
-function makeHTMLBtnDelete($id, $route)
+function makeHTMLBtnDelete($id)
 {
    return `<button type="button" name="delete" id="$id"
            class="btn btn-danger btn-sm delete mr-1">

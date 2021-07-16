@@ -11,9 +11,12 @@
     define ('CONTROLLER_FOLDER_NAME' , './app/controllers/');
     
     define ('UPLOAD_FOLDER' , '/public/upload/');
+    define ('AVATAR_FOLDER' , '/public/avatar/');
 
     define ('PER_PAGE_COUNT' , 7);
     
     define('MD5_PRIVATE_KEY', '2342kuhskdfsd23(&kusdhfjsgJYGJGsfdf384');
+    
+
 
 ?>

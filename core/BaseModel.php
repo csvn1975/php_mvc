@@ -47,9 +47,12 @@ class BaseModel extends \Core\Database
      */
     public function query($sql)
     {
-        //echo $sql;
-
-        $result = $this->dbcon->query($sql) or die($this->dbcon->errno);
+        //die($sql);
+        $result = $this->dbcon->query($sql);
+/*         if ($this->dbcon->errno){
+            var_dump($result);
+            die($this->dbcon->errno);
+        } */
         return $result;
     }
 
@@ -128,6 +131,7 @@ class BaseModel extends \Core\Database
 
     public function getOnce($table, $queryParams = [])
     {
+       
         $newParams = array_merge($this->queryParams, $queryParams, ['LIMIT' => '1']);
         $query =  $this->query($this->buildSQLFromParams($table, $newParams));
         if ($query->num_rows > 0) {
@@ -149,11 +153,10 @@ class BaseModel extends \Core\Database
             return $this->escape_string($value);
         }, $data);
 
-        /* $values = implode("','", $value_array); */
         $values = "'" . implode("','", $value_array) . "'";
         $sql  = "INSERT INTO $table  ($columns) VALUES ($values) ";
-
-        return $this->query($sql) or die();
+        $query = $this->query($sql); 
+        return $query;
     }
 
     public function insert($table, $data)
@@ -205,12 +208,9 @@ class BaseModel extends \Core\Database
     public function deleteByWhere($table, $params)
     {
         $Where = isset($params['where']) ? $params['where'] : [];
-        die($Where);
-
         if (!empty($Where)) {
             $sql = "DELETE FROM $table  WHERE ";
             $sql .= " (" . join(' and ' , $this->convertArrayToSqlPair($Where)) . ") "; 
-            die($sql);
             $result = $this->query($sql);
             return $result;
         }

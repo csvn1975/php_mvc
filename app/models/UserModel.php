@@ -56,24 +56,42 @@ class UserModel extends BaseModel {
 
     public function authUser() {
         $token = getCOOKIE('token');
-        if (empty($token) )
+        if (empty($token) ) {
             return null;
+        }
         else {
-
             $user  =  $this->getOnce('users', [
                 'select' => 'users.*',
                 'join' => 'join login_tokens on (users.id = login_tokens.user_id)',
                 'where' => ['token' => $token,
                 ]
-            ]);           
+            ]); 
             return $user; 
         }     
+    }
+
+    /**
+     * @ return error-message
+     */
+    public function getLoginUser($email, $password) {
+        if ($email && $password) {
+            $user = $this->getOnce($this->table,  [
+                'where' => ['email' => $email]
+            ]);
+
+            if (!$user) 
+                return ['error' => 'This email is not exists.'];  
+
+            if ( !password_verify($password, $user['password']) )
+                return ['error' => 'The password is not correct!'];
+            return  $user;
+        }
     }
 
     public function deleteLoginToken() {
         $token = getCOOKIE('token');
         if (!empty($token) )
-            $this->deleteByWhere('users', ['where' => ['token' => $token ]]);
+            $this->deleteByWhere('login_tokens', ['where' => ['token' => $token ]]);
     }
 
 
@@ -82,7 +100,7 @@ class UserModel extends BaseModel {
     } 
 
     /* save Token to database */
-    public function saveUserToken($id, $token) {
+    public function saveLoginToken($id, $token) {
         $this->create('login_tokens', [
             'user_id' => $id,
             'token' => $token,
@@ -97,10 +115,8 @@ class UserModel extends BaseModel {
 
     # delete a item
     public function destroy($id) 
-    {
+    {   
         $this->delete($this->table, $id);
     } 
 
-} 
-
-?>
+}
