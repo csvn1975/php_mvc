@@ -33,6 +33,7 @@
                     <button type="button" 
                         onclick="window.location='/dashboard'"
                     name="cancel" class="btn btn-lg btn-danger">Cancel</button>
+                    <?= "<p class='mt-2'>I'm a new user. <a href='/admin/register'>Here register</a></p>"; ?>
                 </form>
             </div>
         </div>

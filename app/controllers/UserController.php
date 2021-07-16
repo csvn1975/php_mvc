@@ -87,10 +87,11 @@ class UserController extends \Core\BaseController {
             ];
             
             /* check change password */
-            if (getPOST('password') !== 'OLD_VALUE' )
-                $user['password'] = password_hash(getPOST('password'), PASSWORD_BCRYPT); 
+            $password = getPOST('password');
+            if ($password != 'OLD_VALUE' ){
+                $user['password'] = password_hash($password, PASSWORD_BCRYPT); 
+            }
             
-
             $this->userModel->save($id, $user);
             $this ->redirect('/user');
         }

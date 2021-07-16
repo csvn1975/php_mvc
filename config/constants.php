@@ -14,6 +14,8 @@
     define ('AVATAR_FOLDER' , '/public/avatar/');
 
     define ('PER_PAGE_COUNT' , 7);
+
+    define ('DEBUG_MODE', true);
     
     define('MD5_PRIVATE_KEY', '2342kuhskdfsd23(&kusdhfjsgJYGJGsfdf384');
     

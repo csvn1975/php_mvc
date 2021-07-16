@@ -30,8 +30,10 @@ if (isset($pageTitle))
                 <label for="password">Password</label>
                 <input type="password"
                     rules="required"
+                    name="password"
                     value = "OLD_VALUE"
-                    class="form-control" id="password">
+                    class="form-control" 
+                    id="password">
                 <span class="form-message"> Please enter a password</span>
             </div>
 

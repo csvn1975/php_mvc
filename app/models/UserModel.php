@@ -105,6 +105,7 @@ class UserModel extends BaseModel {
             'user_id' => $id,
             'token' => $token,
         ]);
+        
     }
 
     # save edit value

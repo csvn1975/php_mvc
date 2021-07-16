@@ -55,17 +55,22 @@ class AdminController extends \Core\BaseController {
         $this->redirect('/dashboard');
     }
 
-    function register($message = '')
+    function register($data = [])
     {
-        $this->loadView('layouts.default', [
+        $register = [
             'view' => 'pages.admin.register',
             'pageTitle' => 'REGISTRIERUNG',
-            'message' => $message,
-        ]);
+        ];
+
+
+        if (!empty($data)){
+            $register = array_merge($data, $register);
+        }  
+        $this->loadView('layouts.default', $register);
     }
 
     function create() {
-        
+
         $fullname = getPOST('fullname'); 
         $email  = getPOST('email'); 
         $password = getPOST('password');
@@ -76,11 +81,17 @@ class AdminController extends \Core\BaseController {
             'password' => password_hash(getPOST('password'), PASSWORD_BCRYPT),
         ]);
 
-        if ($user){ 
-            if (makeAuthToken($email, $password)) {
+        if ($user) { 
+            if (!makeAuthToken($email, $password)) {
                 $this->redirect('/dashboard');
             } 
-        }   
+        } else {
+            $this->register([
+                'message' => 'Can not register.',
+                'fullname' => $fullname,
+                'email' => $email,
+                'password' => $password]);    
+        }    
     }
 }
 ?>
