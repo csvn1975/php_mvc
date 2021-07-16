@@ -38,7 +38,7 @@ function validator(formSelecter) {
       let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       return regex.test(value)
         ? undefined
-        : msg || "Bitte geben Sie eine Email ein. ";
+        : msg || "Bitte geben Sie eine gültige Email ein. ";
     },
 
     min: function (min) {

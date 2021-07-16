@@ -30,8 +30,8 @@ if (isset($pageTitle))
         
                 </td>
                 <td class="text-right">
-                    <a href="/product/edit/<?= $product['id'] ?>" class="btn btn-primary btn-sm edit mr-1"><i class="fas fa-pen"></i></a>
-                    <a href="/product/delete/<?= $product['id'] ?>" class="btn btn-danger btn-sm delete mr-1"><i class="fas fa-trash"></i></a>
+                    <?= makeHTMLLinkEdit("/product/edit/", $product['id']) ?>
+                    <?= makeHTMLLinkDelete("/product/delete/", $product['id'])?>
                 </td>
             </tr>
         <?php endforeach ?>

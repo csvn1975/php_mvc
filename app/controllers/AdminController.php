@@ -6,12 +6,13 @@ class AdminController extends \Core\BaseController {
     
     private $userModel;
     public function __construct()
+
     {
         $this->loadModel('UserModel');
         $this->userModel = new \App\Models\UserModel();
     }
 
-    function index($email = '') {
+    function index($message = '') {
        
         /* authenticated_? */
         if ($this->userModel->authUser()) {
@@ -20,7 +21,7 @@ class AdminController extends \Core\BaseController {
         } else {
             $this->loadView('pages.admin.login', [
                 'pageTitle' => 'Login',
-                'email' => $email
+                'message' => $message
             ]);
         }
     }
@@ -30,16 +31,22 @@ class AdminController extends \Core\BaseController {
         $email = getPOST('email');
         $password = getPOST('password');
 
-        $error = makeAuthToken($email, $password);
-
-        if ($error) {     
-            $this->loadView('pages.admin.login', [
-                'pageTitle' => 'Login',
-                'errormessage' => $error
-            ]);
+        if (!$email || !$password) {
+            $this->goBack();
         } 
         else 
-            header('location: /dashboard');
+        {
+            $error = makeAuthToken($email, $password);
+            if ($error) {   
+                $this->loadView('pages.admin.login', [
+                    'pageTitle' => 'Login',
+                    'message' => $error
+                ]);
+            } 
+            else {
+                $this->redirect('/dashboard');
+            }
+        }
     }
 
     function logout() {
@@ -58,7 +65,7 @@ class AdminController extends \Core\BaseController {
     }
 
     function create() {
-      
+        
         $fullname = getPOST('fullname'); 
         $email  = getPOST('email'); 
         $password = getPOST('password');

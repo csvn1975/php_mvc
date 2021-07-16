@@ -4,9 +4,16 @@ namespace Core;
 
 class BaseController {
     
+    
     public function redirect($route) {
         header('location:' . $route);
     }
+    
+    public function goBack() {
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
+
+   
 
     /**
      * @ $path: view-file with folder from folder views

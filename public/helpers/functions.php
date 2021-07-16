@@ -107,14 +107,14 @@ function makeHTMLBtnDelete($id)
            <i class="fas fa-trash"></i></button>`;
 }
 
-function makeHTMLLinkEdit($id, $route)
+function makeHTMLLinkEdit($route, $id)
 {
   $output = '<a href="' . $route . $id . '" class="btn btn-primary btn-sm edit mr-1">';
   $output .= '<i class="fas fa-pen"></i></a>';
   return $output;
 }
 
-function makeHTMLLinkDelete($id, $route)
+function makeHTMLLinkDelete($route, $id )
 {
   $output = '<a href="' . $route . $id . '" class="btn btn-danger btn-sm delete mr-1">';
   $output .= '<i class="fas fa-trash"></i></a>';

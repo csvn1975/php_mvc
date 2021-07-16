@@ -21,10 +21,10 @@
                    
                     <div class="form-group">
                         <label for="email">Email address</label>
-                        <input type="email" rules="required" 
+                        <input type="text" rules="required|email" 
                         placeholder="Email address"
                         class="form-control" id="email">
-                        <span class="form-message"> Please enter a email</span>
+                        <span class="form-message"> Please enter a valid email</span>
                     </div>
 
                     <div class="form-group">

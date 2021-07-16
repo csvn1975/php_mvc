@@ -27,8 +27,8 @@ if (isset($pageTitle))
                 <td><?= $user['name'] ?></td>
                 <td><?= $user['email'] ?></td>
                 <td class="text-right">
-                    <a href="/user/edit/<?= $user['id'] ?>" class="btn btn-primary btn-sm edit mr-1"><i class="fas fa-pen"></i></a>
-                    <a href="/user/delete/<?= $user['id'] ?>" class="btn btn-danger btn-sm delete mr-1"><i class="fas fa-trash"></i></a>
+                    <?= makeHTMLLinkEdit("/user/edit/", $user['id']) ?>
+                    <?= makeHTMLLinkDelete("/user/delete/", $user['id'])?>
                 </td>
 
             </tr>
