@@ -6,7 +6,7 @@ if (isset($pageTitle))
 <div class="row">
     <div class="col-6">
 
-        <form action= "/user/update/<?= $user['id']; ?>" 
+        <form action= "/admin/user/update/<?= $user['id']; ?>" 
             method="post" 
             id="user-update" enctype="multipart/form-data">
             <div class="form-group">
@@ -30,8 +30,10 @@ if (isset($pageTitle))
                 <label for="password">Password</label>
                 <input type="password"
                     rules="required"
+                    name="password"
                     value = "OLD_VALUE"
-                    class="form-control" id="password">
+                    class="form-control" 
+                    id="password">
                 <span class="form-message"> Please enter a password</span>
             </div>
 

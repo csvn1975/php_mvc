@@ -14,7 +14,6 @@ class BaseController {
     }
 
    
-
     /**
      * @ $path: view-file with folder from folder views
      * $data: input-parameter in array

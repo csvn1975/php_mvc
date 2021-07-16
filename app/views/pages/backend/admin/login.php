@@ -14,13 +14,14 @@
                         <input type="text" rules="required|email" 
                         placeholder="Enter a password"
                         name="email" 
-                        class="form-control" id="email">
+                        class="form-control" id="email" placeholder="admin@admin.com">
                         <span class="form-message"> Please enter a valid email</span>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" rules="required" 
                         name="password" 
+                        value = "123456"
                         placeholder="Enter a password"
                         class="form-control" id="password">
                         <span class="form-message"> Please enter a password</span>
@@ -31,8 +32,9 @@
                     <button type="submit" 
                     name="submit" class="btn btn-lg btn-primary">Login</button>
                     <button type="button" 
-                        onclick="window.location='/dashboard'"
+                        onclick="window.location='/'"
                     name="cancel" class="btn btn-lg btn-danger">Cancel</button>
+                    <?= "<p class='mt-2'>I'm a new user. <a href='/admin/register'>Here register</a></p>"; ?>
                 </form>
             </div>
         </div>

@@ -1,15 +1,13 @@
 <?php
 
 /**
- * array $main: [id, title]
- * array $subMenus: [[id, href, title]...]
+ * array $main: [field_id, title]
+ * array $subMenus: [[field_id, href, title]...]
  */
 function makeSubMenu($main, $subMenus)
 {
-
     $html = "<li id= '$main[0]' class='main-menu main-menu__item'> 
             $main[1]<i class='fas fa-sort-down float-right'></i></li>";
-
     $html .= "<ul class='sub-menu'>";
     foreach ($subMenus as $item) {
         $html .= "<li class='sub-menu__item' id= '$item[0]'><a class='sub-menu__item--link' 
@@ -20,9 +18,9 @@ function makeSubMenu($main, $subMenus)
     echo $html;
 }
 
-function makeMenu($id, $href, $title)
+function makeMenu($field_id, $href, $title)
 {
-    echo "<li id= '$id' class='main-menu main-menu__item'>
+    echo "<li id= '$field_id' class='main-menu main-menu__item'>
             <a class='sub-menu__item--link' href='$href'>$title</a></li>";
 }
 ?>
@@ -31,20 +29,21 @@ function makeMenu($id, $href, $title)
 <ul id="main-menu">
 
     <?php
-    makeMenu("dashboard", "/dashboard", "Dashboard");
+    makeMenu("home", "/home", "Home");
+    makeMenu("dashboard", "/admin/dashboard", "Dashboard");
 
-    makeSubMenu(["category", "Categories"],[['category-list', '/category', 'Category Lists'], 
-        ['category-add', '/category/create', 'Add new category']]
+    makeSubMenu(["category", "Categories"],[['category-list', '/admin/category', 'Category Lists'], 
+        ['category-add', '/admin/category/create', 'Add new category']]
     );
 
     makeSubMenu(["product", "Products"], [
-        ['product-list', '/product', 'Product Lists'],
-        ['product-add', '/product/create', 'Add new product']
+        ['product-list', '/admin/product', 'Product Lists'],
+        ['product-add', '/admin/product/create', 'Add new product']
     ]);
 
     makeSubMenu(["user", "Users"], [
-        ['user-list', '/user', 'User Lists'],
-        ['user-add', '/user/create', 'Add new user']
+        ['user-list', '/admin/user', 'User Lists'],
+        ['user-add', '/admin/user/create', 'Add new user']
     ]);
     ?>
 

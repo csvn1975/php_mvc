@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 
 class UserController extends \Core\BaseController {
     
@@ -25,8 +25,8 @@ class UserController extends \Core\BaseController {
 
         $page_count = ceil($total / PER_PAGE_COUNT);
 
-        $this->loadView('layouts.default' , [
-            'view' => 'pages.users.index',
+        $this->loadView('layouts.admin' , [
+            'view' => 'pages.backend.users.index',
             'users' => $users,
             'page_count' => $page_count,
             'page_index' => $page,
@@ -37,8 +37,8 @@ class UserController extends \Core\BaseController {
 
     /* form create new item */
     function create() {
-        $this->loadView('layouts.default' , [
-            'view' => 'pages.users.create',
+        $this->loadView('layouts.admin' , [
+            'view' => 'pages.backend.users.create',
             'pageTitle' => 'Create new user'
         ]);
     }
@@ -55,18 +55,18 @@ class UserController extends \Core\BaseController {
             ];
 
             $this->userModel->store($user);
-            $this -> redirect('/user');
+            $this -> redirect('/admin/user');
         }
         else  {
-            $this ->redirect('/user/create');
+            $this ->redirect('/admin/user/create');
         }
     }
     
     # form edit
     function edit($id) {       
         $user =  $this->userModel->findByID($id); 
-        $this->loadView('layouts.default' , [
-            'view' => 'pages.users.edit',
+        $this->loadView('layouts.admin' , [
+            'view' => 'pages.backend.users.edit',
             'user' => $user,
             'pageTitle' => 'Edit user '
         ]); 
@@ -87,22 +87,23 @@ class UserController extends \Core\BaseController {
             ];
             
             /* check change password */
-            if (getPOST('password') !== 'OLD_VALUE' )
-                $user['password'] = password_hash(getPOST('password'), PASSWORD_BCRYPT); 
+            $password = getPOST('password');
+            if ($password != 'OLD_VALUE' ){
+                $user['password'] = password_hash($password, PASSWORD_BCRYPT); 
+            }
             
-
             $this->userModel->save($id, $user);
-            $this ->redirect('/user');
+            $this ->redirect('/admin/user');
         }
         else  {
-            $this ->redirect('/user/edit/' . $id);
+            $this ->redirect('/admin/user/edit/' . $id);
         }
     }
 
     public function delete($id)
     {
         $this -> userModel->destroy($id);
-        $this -> redirect('/user');
+        $this -> redirect('/admin/user');
     }
 }
 ?>

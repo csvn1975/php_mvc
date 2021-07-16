@@ -22,8 +22,8 @@ if (isset($pageTitle))
                 <td><?= $index ?></td>
                 <td><?= $category['name'] ?></td>
                 <td>
-                    <a href="/category/edit/<?= $category['id'] ?>" class="btn btn-primary btn-sm edit mr-1"><i class="fas fa-pen"></i></a>
-                    <a href="/category/delete/<?= $category['id'] ?>" class="btn btn-danger btn-sm delete mr-1"><i class="fas fa-trash"></i></a>
+                    <a href="/admin/category/edit/<?= $category['id'] ?>" class="btn btn-primary btn-sm edit mr-1"><i class="fas fa-pen"></i></a>
+                    <a href="/admin/category/delete/<?= $category['id'] ?>" class="btn btn-danger btn-sm delete mr-1"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
         <?php endforeach ?>
@@ -40,11 +40,11 @@ if (isset($pageTitle))
 
     <?php for ($i = 1; $i <= $page_count ; $i++) : ?>
          <li class="page-item" data="number">
-         <a class="page-link" href="/category/index/<?= $i ?>"><?= $i ?></a></li>
+         <a class="page-link" href="/admin/category/index/<?= $i ?>"><?= $i ?></a></li>
     <?php endfor ?>    
 
     <li class="page-item" data="next">
-        <a class="page-link" href="/category/index/<?= ($page_index + 1) ?>" >Next</a>
+        <a class="page-link" href="/admin/category/index/<?= ($page_index + 1) ?>" >Next</a>
     </li>
 
   </ul>

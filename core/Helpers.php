@@ -4,12 +4,11 @@ namespace Core;
 
 class Helpers
 {
-
     /**
      * @parameter 
      * $filesField: fieldname
      * $targetPath: save folder
-     */
+     */ 
     public static function uploadFile($fileField, $targetPath)
     {
 
@@ -42,12 +41,14 @@ class Helpers
         if (!isset($_FILES[$filesField]))
             die('$_FILES[' . $filesField . '] does not found');
 
+      
         if (!file_exists($targetPath)) {
-            die("The folder $targetPath does not exist");
+            if (!mkdir($targetPath, 0777, true)) {
+                die("The folder $targetPath does not exist");
+            }
         }
 
-        $filesList = [];
-
+        $filesList = [];        
         if (!empty($_FILES)) {
             try {
                 foreach ($_FILES[$filesField]['tmp_name'] as $index => $file) {
@@ -72,7 +73,7 @@ class Helpers
     public static function gerCurrency($value)
     {
         $fmt = new \NumberFormatter( 'de_DE', \NumberFormatter::CURRENCY );
-        return $fmt->formatCurrency($value, "EUR") ;
+        return $fmt->formatCurrency(FloatVal($value), "EUR") ;
     }
 
     public static function formatDate($date)

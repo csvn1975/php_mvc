@@ -27,8 +27,8 @@ if (isset($pageTitle))
                 <td><?= $user['name'] ?></td>
                 <td><?= $user['email'] ?></td>
                 <td class="text-right">
-                    <?= makeHTMLLinkEdit("/user/edit/", $user['id']) ?>
-                    <?= makeHTMLLinkDelete("/user/delete/", $user['id'])?>
+                    <?= makeHTMLLinkEdit("/admin/user/edit/", $user['id']) ?>
+                    <?= makeHTMLLinkDelete("/admin/user/delete/", $user['id'])?>
                 </td>
 
             </tr>
@@ -41,16 +41,16 @@ if (isset($pageTitle))
     <nav aria-label="Page navigation">
         <ul class="pagination">
             <li class="page-item" data="prev">
-                <a class="page-link" href="/user/index/<?= ($page_index - 1) ?>">Previous</a>
+                <a class="page-link" href="admin/user/index/<?= ($page_index - 1) ?>">Previous</a>
             </li>
 
             <?php for ($i = 1; $i <= $page_count; $i++) : ?>
                 <li class="page-item" data="number">
-                    <a class="page-link" href="/user/index/<?= $i ?>"><?= $i ?></a>
+                    <a class="page-link" href="admin/user/index/<?= $i ?>"><?= $i ?></a>
                 </li>
             <?php endfor ?>
             <li class="page-item" data="next">
-                <a class="page-link" href="/user/index/<?= ($page_index + 1) ?>">Next</a>
+                <a class="page-link" href="admin/user/index/<?= ($page_index + 1) ?>">Next</a>
             </li>
 
         </ul>

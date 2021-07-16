@@ -6,7 +6,7 @@ if (isset($pageTitle))
 <div class="row">
     <div class="col-6">
 
-    <form action="/product/update/<?= $product['id'];?>" 
+    <form action="/admin/product/update/<?= $product['id'];?>" 
             id= "product-edit"
             method="post" enctype="multipart/form-data">
             <div class="form-group">
@@ -44,9 +44,9 @@ if (isset($pageTitle))
                 <input type="file" name='image' class="form-control-file" id="image" hidden>
                 <label rules="required" 
                     name='file-name'>
-                    <?= $product['img'] ?>
+                    <?= $product['thumbnail'] ?>
                 </label><br>
-                <input name = "old-image" hidden value ="<?= $product['img'] ?>">
+                <input name = "old-image" hidden value ="<?= $product['thumbnail'] ?>">
             </input> 
                 <span class="form-message"> Please choose a image </span>
             </div>
@@ -54,7 +54,7 @@ if (isset($pageTitle))
 
             <!-- show image -->
             <div class="form-group image-display show">
-                <img src= "<?= UPLOAD_FOLDER . $product['img']; ?>"
+                <img src= "<?= UPLOAD_FOLDER . $product['thumbnail']; ?>"
                 name="output" alt="" id="output" width="150" max-height="150" />
             </div>
             <!-- end show image -->

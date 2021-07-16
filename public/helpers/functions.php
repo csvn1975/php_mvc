@@ -32,11 +32,27 @@ function includeView($name, $data = [])
     foreach ($data as $key => $value) {
         $$key = $value;
     }
+    $name = VIEW_FOLDER_NAME . str_replace(".", "/", $name) . ".php";
+    
+    if (!file_exists($name)) {
+        die(__FILE__ . " by line " . __LINE__ . ": not exists file $name ");
+    }
+
+    include $name ;
+}
+
+/* render php in php */
+function render($name, $data = [])
+{
+    foreach ($data as $key => $value) {
+        $$key = $value;
+    }
 
     $name = str_replace(".", "/", $name);
 
     include VIEW_FOLDER_NAME . $name . ".php";
 }
+
 
 # include php
 function includeFile($name)
@@ -125,6 +141,10 @@ function makeHTMLLinkDelete($route, $id )
 # ===============================================
 # create Category select 
 # ===============================================
+/**
+ * @ array: sourceArray of category
+ * @ seletedId => active index
+ */
 
 function createCategoryOption($sourceArray, $seletedId ='')
 {

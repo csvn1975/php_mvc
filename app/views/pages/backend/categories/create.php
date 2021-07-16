@@ -5,7 +5,7 @@ if (isset($pageTitle))
 
 <div class="row">
     <div class="col-6">
-        <form action="/category/store" id="category-create" method="POST">
+        <form action="/admin/category/store" id="category-create" method="POST">
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Category</label>
                 <select class="form-control" name="category_id" id="categories">

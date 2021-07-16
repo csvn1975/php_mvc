@@ -49,10 +49,12 @@ class BaseModel extends \Core\Database
     {
         //die($sql);
         $result = $this->dbcon->query($sql);
-/*         if ($this->dbcon->errno){
-            var_dump($result);
-            die($this->dbcon->errno);
-        } */
+
+        if (!$result && DEBUG_MODE) {
+            echo $sql . '<br>';
+            die("Error description: " . $this->dbcon -> error);
+        }
+
         return $result;
     }
 
@@ -155,6 +157,7 @@ class BaseModel extends \Core\Database
 
         $values = "'" . implode("','", $value_array) . "'";
         $sql  = "INSERT INTO $table  ($columns) VALUES ($values) ";
+
         $query = $this->query($sql); 
         return $query;
     }

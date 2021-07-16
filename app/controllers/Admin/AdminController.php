@@ -1,25 +1,24 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 
 class AdminController extends \Core\BaseController {
     
     private $userModel;
     public function __construct()
-
+    
     {
         $this->loadModel('UserModel');
         $this->userModel = new \App\Models\UserModel();
     }
 
     function index($message = '') {
-       
         /* authenticated_? */
         if ($this->userModel->authUser()) {
-            $this->redirect('/dashboard');
+            $this->redirect('/admin/dashboard');
 
         } else {
-            $this->loadView('pages.admin.login', [
+            $this->loadView('pages.backend.admin.login', [
                 'pageTitle' => 'Login',
                 'message' => $message
             ]);
@@ -38,13 +37,13 @@ class AdminController extends \Core\BaseController {
         {
             $error = makeAuthToken($email, $password);
             if ($error) {   
-                $this->loadView('pages.admin.login', [
+                $this->loadView('pages.backend.admin.login', [
                     'pageTitle' => 'Login',
                     'message' => $error
                 ]);
             } 
             else {
-                $this->redirect('/dashboard');
+                $this->redirect('/admin/dashboard');
             }
         }
     }
@@ -52,20 +51,26 @@ class AdminController extends \Core\BaseController {
     function logout() {
         $this->userModel->deleteLoginToken();
         setcookie("token", "", time() - 3600, '/');
-        $this->redirect('/dashboard');
+        $this->redirect('/admin/dashboard');
     }
 
-    function register($message = '')
+
+    function register($data = [])
     {
-        $this->loadView('layouts.default', [
-            'view' => 'pages.admin.register',
+        $register = [
+            'view' => 'pages.backend.admin.register',
             'pageTitle' => 'REGISTRIERUNG',
-            'message' => $message,
-        ]);
+        ];
+
+        if (!empty($data)){
+            $register = array_merge($data, $register);
+        }  
+        
+        $this->loadView('layouts.admin', $register);
     }
 
     function create() {
-        
+
         $fullname = getPOST('fullname'); 
         $email  = getPOST('email'); 
         $password = getPOST('password');
@@ -76,11 +81,18 @@ class AdminController extends \Core\BaseController {
             'password' => password_hash(getPOST('password'), PASSWORD_BCRYPT),
         ]);
 
-        if ($user){ 
-            if (makeAuthToken($email, $password)) {
-                $this->redirect('/dashboard');
+        if ($user) { 
+            if (!makeAuthToken($email, $password)) {
+                $this->redirect('/admin/dashboard');
             } 
-        }   
+        } else {
+            $this->register([
+                'message' => 'Can not register.',
+                'fullname' => $fullname,
+                'email' => $email,
+                'password' => $password]);    
+        }    
     }
+
 }
 ?>

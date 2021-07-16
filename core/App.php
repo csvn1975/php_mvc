@@ -4,20 +4,37 @@ namespace Core;
 
 class App{
 
-    protected $controller = "HomeController";
+    protected $controller = "";
     protected $action="index";
     protected $params=[];
-    
+
     function __construct(){
 
         $arr = $this->UrlProcess();
-        $controllerName = $this -> controller;
-        //default ControllerFile
-        $controllerFile = CONTROLLER_FOLDER_NAME . $controllerName . ".php";  
+        $isAdmin = (isset($arr[0]) && strtolower($arr[0]) == 'admin');
+        
+        $this->controller = $isAdmin ? "AdminController" : 'HomeController';
+        $controllerPath = CONTROLLER_FOLDER_NAME . ($isAdmin ? 'admin/'  : '') ;
 
+        // admin/login, admin/logout, admin/register  => controller admin
+        // admin/product/edit => path admin, controller/action: product/edit
+
+        if ($isAdmin  && isset($arr[1])) {
+           if ( !in_array( strtolower($arr[1]), ['login', 'logout', 'register']) )
+                array_shift($arr);
+        }
+            
+       /*  print_r($arr);
+        die(); */
+
+        //default 
+        $controllerName = $this -> controller;
+        $controllerFile = $controllerPath . $controllerName . ".php";  
+       
         // Controller -----------------------
         if (isset($arr[0])){
-            $controllerFile = CONTROLLER_FOLDER_NAME . ucfirst($arr[0]) . "Controller.php";        
+            $controllerFile = $controllerPath . ucfirst($arr[0]) . "Controller.php";        
+            
             if( file_exists($controllerFile) ){
                 $controllerName = ucfirst($arr[0]) . 'Controller';
             }
@@ -27,11 +44,14 @@ class App{
             array_shift($arr);
         } 
         
-
-        $controllerName = '\\App\\Controllers\\' . $controllerName;
+        if ($isAdmin) 
+            $controllerName = '\\App\\Controllers\\Admin\\' . $controllerName;
+        else 
+            $controllerName = '\\App\\Controllers\\' . $controllerName;
        
         require_once $controllerFile;
           $this->controller = new $controllerName;
+
 
         // Action ---------------------------
         if(isset($arr[0])){
@@ -44,10 +64,10 @@ class App{
             array_shift($arr);
         }
         
+    
         $this->params = $arr ? array_values($arr) : [];
         
         //call controller/method
-        #$class = $diContianer->get_class($class);
         call_user_func_array([ $this -> controller, $this -> action], $this -> params );
     }
 
