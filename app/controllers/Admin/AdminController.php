@@ -54,7 +54,6 @@ class AdminController extends \Core\BaseController {
         $this->redirect('/admin/dashboard');
     }
 
-
     function register($data = [])
     {
         $register = [
@@ -67,6 +66,7 @@ class AdminController extends \Core\BaseController {
         }  
         
         $this->loadView('layouts.admin', $register);
+        
     }
 
     function create() {

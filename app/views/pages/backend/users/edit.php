@@ -12,7 +12,7 @@ if (isset($pageTitle))
             <div class="form-group">
                 <label for="fullname">Fullname</label>
                 <input type="text" rules="required" 
-                value = <?= $user['name'] ?>
+                value = "<?= $user['name'] ?>""
                 placeholder="Fullname" name="fullname" 
                 class="form-control" id="fullname">
                 <span class="form-message"> Please enter a Fullname</span>
@@ -21,7 +21,7 @@ if (isset($pageTitle))
             <div class="form-group">
                 <label for="email">Email address</label>
                 <input type="email" rules="required" 
-                value = <?= $user['email'] ?>
+                value = "<?= $user['email'] ?>""
                 placeholder="Email address" name="email" class="form-control" id="email">
                 <span class="form-message"> Please enter a email</span>
             </div>
