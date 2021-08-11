@@ -32,19 +32,20 @@ function makeMenu($field_id, $href, $title)
     makeMenu("home", "/home", "Home");
     makeMenu("dashboard", "/admin/dashboard", "Dashboard");
 
-    makeSubMenu(["category", "Categories"],[['category-list', '/admin/category', 'Category Lists'], 
+    makeSubMenu(["category", "Categories"],[['category-list', '/admin/category', 'Category List'], 
         ['category-add', '/admin/category/create', 'Add new category']]
     );
 
     makeSubMenu(["product", "Products"], [
-        ['product-list', '/admin/product', 'Product Lists'],
+        ['product-list', '/admin/product', 'Product List'],
         ['product-add', '/admin/product/create', 'Add new product']
     ]);
 
     makeSubMenu(["user", "Users"], [
-        ['user-list', '/admin/user', 'User Lists'],
+        ['user-list', '/admin/user', 'User List'],
         ['user-add', '/admin/user/create', 'Add new user']
     ]);
+    
     ?>
 
 </ul>

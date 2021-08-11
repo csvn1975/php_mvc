@@ -36,7 +36,7 @@ class CategoryController extends \Core\BaseController
         $this->loadView('layouts.admin', [
             'view' => 'pages.backend.categories.index',
             'categories' => $categories,
-            'pageTitle' => 'Category Lists',
+            'pageTitle' => 'Category List',
             'page_count' => $page_count,
             'page_index' => $page,
         ]);

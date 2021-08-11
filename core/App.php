@@ -20,7 +20,7 @@ class App{
         // admin/product/edit => path admin, controller/action: product/edit
 
         if ($isAdmin  && isset($arr[1])) {
-           if ( !in_array( strtolower($arr[1]), ['login', 'logout', 'register']) )
+           if ( !in_array( strtolower($arr[1]), ['login', 'logout', 'register', 'create']) )
                 array_shift($arr);
         }
             

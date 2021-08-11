@@ -40,7 +40,7 @@ class ProductController extends \Core\BaseController {
             'products' => $products,
             'page_count' => $page_count,
             'page_index' => $page,
-            'pageTitle' => 'Product Lists '
+            'pageTitle' => 'Product List '
         ]);
     }
 

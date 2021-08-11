@@ -13,6 +13,8 @@
     define ('UPLOAD_FOLDER' , '/public/upload/');
     define ('AVATAR_FOLDER' , '/public/avatar/');
 
+    define ('LOG_DIR', 'logs');
+
     define ('PER_PAGE_COUNT' , 7);
 
     define ('DEBUG_MODE', true);

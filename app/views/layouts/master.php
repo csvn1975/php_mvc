@@ -8,7 +8,7 @@
     <!-- HEADER -->
     <?php includeView('includes.frontend.header') ?>
 
-    <div class="content">
+    <div class="content-fluid">
         <?php if (isset($view))
              $view = str_replace(".", "/", $view);
              include VIEW_FOLDER_NAME . $view . ".php";

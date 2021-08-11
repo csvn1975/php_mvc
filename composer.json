@@ -3,7 +3,8 @@
         "psr-4": {
             "Autoloading\\": "app/",
             "App\\": "app/",
-            "Core\\": "core/"
+            "Core\\": "core/",
+            "Classes\\": "Classes/"
         }
     }
 }

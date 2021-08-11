@@ -56,11 +56,7 @@
 
                     <button type="submit" class="btn btn-lg btn-primary">Register</button>
                     <button type="button" 
-<<<<<<< HEAD:app/views/pages/backend/admin/register.php
-                        onclick="window.location='/'"
-=======
-                        onclick="window.location='/dashboard'"
->>>>>>> 327a39d3b05275a00fcb1720e8232e44dbfbf75d:app/views/pages/admin/register.php
+                        onclick="window.location='/admin/dashboard'"
                     class="btn btn-lg btn-danger">Cancel</button>
                     <?= "<p class='mt-2'>I'm already a member. <a href='/admin'>Here login</a></p>"; ?>
                 </form>

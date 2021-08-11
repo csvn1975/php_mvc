@@ -30,7 +30,7 @@ class UserController extends \Core\BaseController {
             'users' => $users,
             'page_count' => $page_count,
             'page_index' => $page,
-            'pageTitle' => 'User Lists '
+            'pageTitle' => 'User List'
         ]);
     }
 

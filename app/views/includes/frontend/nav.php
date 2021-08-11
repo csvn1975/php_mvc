@@ -1,14 +1,6 @@
 <?php
     $user = (new \App\Models\UserModel())->authUser();
-    $cart = [];
-    if (isset($_COOKIE['cart'])) {
-        $json = $_COOKIE['cart'];
-        $cart = json_decode($json, true);
-    }
-    $count = 0;
-    foreach ($cart as $item) {
-        $count += $item['num'];
-    }
+    $cartQuantity = (new \Classes\Cart())->quantity;
 ?>
 
 <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
@@ -26,12 +18,19 @@
             <li class="nav-item">
                 <a class="nav-link" href="/about">About</a>
             </li>
+            <?php if ($user) : ?>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/dashboard">dashboard</a>
+            </li>
+            <?php endif ?>
+
+            
         </ul>
         
         <div class="float-right">
-            <a href="cart.php">
+            <a href="/cart/list">
                 <button type="button" class="btn btn-lg btn-primary">
-                    Cart <span class="badge badge-light"><?= $count ?></span>
+                    Cart <span class="badge badge-light" id="cart-items-count"><?= $cartQuantity ?></span>
                 </button>
             </a>
 

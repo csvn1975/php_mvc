@@ -9,18 +9,17 @@ class ProductController extends \Core\BaseController {
 
     public function __construct(){
 
-        $this->loadModel('ProductModel');
-        $this->loadModel('CategoryModel');
+       /*  $this->loadModel('ProductModel');
+        $this->loadModel('CategoryModel'); */
 
         $this->productModel = new \App\Models\ProductModel();
         $this->categoryModel = new \App\Models\CategoryModel();
-      
+    
     }
     
     function index($page = 1) {
-        if ($page<1)
-            $page = 1;
 
+        if ($page<1) $page = 1;
         $perPage = 8;
         $total = $this -> productModel -> getTotal();
         $offset = $perPage * ($page -1); 
