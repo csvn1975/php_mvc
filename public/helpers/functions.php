@@ -32,7 +32,7 @@ function includeView($name, $data = [])
     foreach ($data as $key => $value) {
         $$key = $value;
     }
-    $name = VIEW_FOLDER_NAME . str_replace(".", "/", $name) . ".php";
+    $name = VIEW_FOLDER . str_replace(".", "/", $name) . ".php";
     
     if (!file_exists($name)) {
         die(__FILE__ . " by line " . __LINE__ . ": not exists file $name ");
@@ -50,7 +50,7 @@ function render($name, $data = [])
 
     $name = str_replace(".", "/", $name);
 
-    include VIEW_FOLDER_NAME . $name . ".php";
+    include VIEW_FOLDER . $name . ".php";
 }
 
 

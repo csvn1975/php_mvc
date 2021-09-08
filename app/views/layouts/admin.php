@@ -14,7 +14,7 @@
     <div class="content">
         <?php if (isset($view))
             $view = str_replace(".", "/", $view);
-        include VIEW_FOLDER_NAME . $view . ".php";
+        include VIEW_FOLDER . $view . ".php";
         ?>
     </div>
 
@@ -27,5 +27,5 @@
 </div>
 <!-- END MAIN CONTENT -->
 <?php
-include VIEW_FOLDER_NAME . "includes/foot.php";
+include VIEW_FOLDER . "includes/foot.php";
 ?>

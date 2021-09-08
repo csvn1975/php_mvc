@@ -18,7 +18,6 @@ class ProductController extends \Core\BaseController {
     }
     
     function index($page = 1) {
-
         if ($page<1) $page = 1;
         $perPage = 8;
         $total = $this -> productModel -> getTotal();

@@ -14,7 +14,7 @@ class App{
         $isAdmin = (isset($arr[0]) && strtolower($arr[0]) == 'admin');
         
         $this->controller = $isAdmin ? "AdminController" : 'HomeController';
-        $controllerPath = CONTROLLER_FOLDER_NAME . ($isAdmin ? 'admin/'  : '') ;
+        $controllerPath = CONTROLLER_FOLDER . ($isAdmin ? 'admin/'  : '') ;
 
         // admin/login, admin/logout, admin/register  => controller admin
         // admin/product/edit => path admin, controller/action: product/edit
@@ -49,8 +49,7 @@ class App{
         else 
             $controllerName = '\\App\\Controllers\\' . $controllerName;
        
-        require_once $controllerFile;
-          $this->controller = new $controllerName;
+        $this->controller = new $controllerName;
 
 
         // Action ---------------------------
@@ -64,9 +63,7 @@ class App{
             array_shift($arr);
         }
         
-    
         $this->params = $arr ? array_values($arr) : [];
-        
         //call controller/method
         call_user_func_array([ $this -> controller, $this -> action], $this -> params );
     }

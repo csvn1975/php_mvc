@@ -28,11 +28,11 @@ class BaseController {
             $$key = $value;
         }
         
-        require VIEW_FOLDER_NAME . str_replace("." , "/", $path) . ".php";
+        require VIEW_FOLDER . str_replace("." , "/", $path) . ".php";
     }
 
     protected function loadModel($path) {
-        require_once MODEL_FOLDER_NAME . str_replace(".", "/", $path) . ".php";
+        require_once MODEL_FOLDER . str_replace(".", "/", $path) . ".php";
     }
 
 }

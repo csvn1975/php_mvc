@@ -1,5 +1,5 @@
 <?php 
 ?>
-<h1 class="text-center">Home Page</h1>
+<h1 class="text-center" style="height: calc(100% - 200px)" >Home Page</h1>
 
 

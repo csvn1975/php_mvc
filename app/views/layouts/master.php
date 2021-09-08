@@ -8,10 +8,10 @@
     <!-- HEADER -->
     <?php includeView('includes.frontend.header') ?>
 
-    <div class="content-fluid">
+    <div class="content-fluid content">
         <?php if (isset($view))
              $view = str_replace(".", "/", $view);
-             include VIEW_FOLDER_NAME . $view . ".php";
+             include VIEW_FOLDER . $view . ".php";
         ?>
     </div>
 
@@ -20,7 +20,6 @@
 
 </div>
 <!-- END MAIN CONTENT -->
-
 
 <?php
     includeView ("includes.foot");
