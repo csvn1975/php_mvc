@@ -12,7 +12,6 @@ class HomeController extends \Core\BaseController {
 
         $this->productModel = new \App\Models\ProductModel();
         $this->categoryModel = new \App\Models\CategoryModel();
-    
     }
 
     function index() {
@@ -20,6 +19,8 @@ class HomeController extends \Core\BaseController {
             'view' => 'pages.frontend.home.index',
             'pageTitle' => 'Home Page'
         ]);
+
+     
     }
 
     
