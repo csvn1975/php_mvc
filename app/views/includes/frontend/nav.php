@@ -7,7 +7,7 @@
     <div class="container">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="/product">Home</a>
+                <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/product">Shop</a>

@@ -14,8 +14,16 @@ class HomeController extends \Core\BaseController {
         $this->categoryModel = new \App\Models\CategoryModel();
     
     }
+
+    function index() {
+        $this->loadView('layouts.master' , [
+            'view' => 'pages.frontend.home.index',
+            'pageTitle' => 'Home Page'
+        ]);
+    }
+
     
-    function index($page = 1) {
+    function products($page = 1) {
         if ($page<1) $page = 1;
         $perPage = 8;
         $total = $this -> productModel -> getTotal();
